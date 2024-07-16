@@ -15,7 +15,16 @@ Day 2
     > Spring Cloud Config Server
 
 - Adding git to config server application
-    > spring.cloud.config.server.git.uri=file:///{path}
 
 Day 3
+- Clients Configurations : 
+    > spring.config.import=optional:configserver:http://localhost:8888
+
+- Server Configurations : 
+    > port : {port}
+    > spring.cloud.config.server.git.uri=file:///{path}
+
+- Multiple Profiles for properties : 
+    > spring.profiles.active={name} <br> spring.cloud.config.profile={name}
+    
 
