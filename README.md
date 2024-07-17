@@ -40,5 +40,11 @@ Config Client Config Client Config Client
         > add vm options in run config : [-Dserver.port={port}]
     
 
+- Currency Conversion Service (Microservice Example) : <br>
+    - links : 
+        - http://localhost:8100/currency-conversion/from/USD/to/INR/quantity/10
+    
+    - Get Data from different microservice via URI :
+        > RestTemplate rt = new RestTemplate().{methods};
     
 
