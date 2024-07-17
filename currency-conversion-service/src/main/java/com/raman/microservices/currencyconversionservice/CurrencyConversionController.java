@@ -27,7 +27,6 @@ public class CurrencyConversionController {
     ) {
         Map<String, String> uriVariables = new HashMap<>();
         String url = String.format("http://localhost:8000/currency-exchange/from/%s/to/%s", from, to);
-        String port = env.getProperty("local.server.port");
 
         uriVariables.put("from", from);
         uriVariables.put("to", to);
@@ -36,6 +35,26 @@ public class CurrencyConversionController {
 
         assert currencyConversion != null;
         currencyConversion.setQuantity(quantity);
+        currencyConversion.setEnvironment(currencyConversion.getEnvironment() + " rest template");
+        currencyConversion.setTotalCalculatedAmount(currencyConversion.getConversionMultiple().multiply(quantity));
+
+        return currencyConversion;
+
+    }
+
+    @Autowired
+    private CurrencyExchangeProxy proxy;
+
+    @GetMapping("currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
+    public CurrencyConversion calculateCurrencyConversionFeign(
+            @PathVariable String from,
+            @PathVariable String to,
+            @PathVariable BigDecimal quantity
+
+    ) {
+        CurrencyConversion currencyConversion = proxy.retrieveExchangeValue(from, to);
+        currencyConversion.setQuantity(quantity);
+        currencyConversion.setEnvironment(currencyConversion.getEnvironment() + " feign");
         currencyConversion.setTotalCalculatedAmount(currencyConversion.getConversionMultiple().multiply(quantity));
 
         return currencyConversion;

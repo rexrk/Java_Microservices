@@ -46,5 +46,9 @@ Config Client Config Client Config Client
     
     - Get Data from different microservice via URI :
         > RestTemplate rt = new RestTemplate().{methods};
-    
+
+    - ### OpenFeign Rest Client for service invocation (Optimize Rest Template) :
+        - dependency : spring-cloud-starter-openfeign 
+        > Main class : @EnableFeignClients <br>
+        > Proxy Interface : @FeignClient(name={spring.app.name}, url={url})
 
