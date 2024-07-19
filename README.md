@@ -52,3 +52,14 @@ Config Client Config Client Config Client
         > Main class : @EnableFeignClients <br>
         > Proxy Interface : @FeignClient(name={spring.app.name}, url={url})
 
+# Day 5
+- Naming server
+    > @EnableEurekaServer
+    - Disable self discovery of server
+        >eureka.client.register-with-eureka=false <br> eureka.client.fetch-registry=false
+
+- Service Discovery Clients
+    > eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+
+
+
