@@ -112,12 +112,12 @@ Config Client | Config Client | Config Client
   return builder.routes()
                 .route(p -> p
                         .path("/get")
-                //GatewayFilterSpec
+                //GatewayFilterSpec filters
                         .filters(f -> f
                                 .addRequestHeader("{MyHeader}", "{MyURI}")
                                 .addRequestParameter("{MyParam}", "{MyValue}"))
                         .uri("http://httpbin.org/get"))
-                //default paths
+                //predicate
                 .route(p -> p
                         .path("/{path}/**")
                         .uri("lb://{path}"))
@@ -135,4 +135,10 @@ Config Client | Config Client | Config Client
     - http://localhost:8765/currency-conversion/from/USD/to/INR/quantity/10
     - http://localhost:8765/currency-conversion-feign/from/EUR/to/INR/quantity/10
     - http://localhost:8765/currency-conversion-new/from/AUD/to/INR/quantity/110
-    - 
+  
+## Day 7
+
+- Spring Cloud Gateway Logging Filter
+  > class : implements gateway.filter.GlobalFilter 
+  > implement method : Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)
+
