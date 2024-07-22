@@ -142,3 +142,22 @@ Config Client | Config Client | Config Client
   > class : implements gateway.filter.GlobalFilter 
   > implement method : Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)
 
+- Circuit Breaker from Resilience4j
+
+  > Dependency : resilience4j-spring-boot2 <br> 
+  > Dependency : spring-boot-starter-aop
+  - ```@Retry(name = "{name}")``` on api method 
+    - fallback : ```@Retry(fallbackMethod={implemented Method name with accepting Exception param})```
+  - some properties : 
+    > resilience4j.retry.instances.{api-name}.max-attempts=5 <br>
+    > resilience4j.retry.instances.{api-name}.wait-duration=2s <br>
+    > resilience4j.retry.instances.{api-name}.enable-exponential-backoff=true <br>
+
+- Breaking Circuit for failing microservices (closed -> open <-> half_open -> closed):
+  > @CircuitBreaker(name = "default", fallbackMethod = "fallbackRestTemplate") <br>
+  > props : resilience4j.circuitbreaker.instances.{name}.{property}={value}
+
+- Rate Limiting
+  > @RateLimiter(name = "default") <br>
+  > props : resilience4j.ratelimiter.instances.{name}.{property}={value}
+
