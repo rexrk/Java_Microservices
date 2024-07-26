@@ -158,6 +158,8 @@ Config Client | Config Client | Config Client
   > props : resilience4j.circuitbreaker.instances.{name}.{property}={value}
 
 - Rate Limiting
-  > @RateLimiter(name = "default") <br>
+  > @RateLimiter(name = {name}) <br>
   > props : resilience4j.ratelimiter.instances.{name}.{property}={value}
 
+- Allowing Concurrent requeusts
+  > @BulkHead(name={name})
