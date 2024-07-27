@@ -94,8 +94,7 @@ Config Client | Config Client | Config Client
   - http://localhost:8765/CURRENCY-CONVERSION/currency-conversion-feign/from/EUR/to/INR/quantity/10
 
 - Fixing uppercase letters in links :
-
-  > props : spring.cloud.gateway.discovery.locator.enabled=true
+  > props : spring.cloud.gateway.discovery.locator.lower-case-service-id=true
 
   - New Links (lowercase) :
     - http://localhost:8765/currency-exchange/currency-exchange/from/USD/to/INR
