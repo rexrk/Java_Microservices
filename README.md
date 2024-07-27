@@ -179,5 +179,19 @@ Config Client | Config Client | Config Client
   cpu quota : run --cpu-quota={1-100000} <br>
   memory : run -m {memSize}{m/g} <br>
   docker daemon : system df <br>
-  
 
+- Distributed Tracing
+  > Tracing / Debugging
+    - Run zipkin on port 9411
+
+- OpenTelemetry
+  - Dependencies :
+    > Micrometer : micrometer-observation <br>
+    > OpenTelemetry : micrometer-tracing-bridge-otel <br>
+    > Zipkin : opentelemetry-exporter-zipkin <br>
+
+  - Properties : 
+    > management.tracing.sampling.probability={,1.0} <br>
+      logging.pattern.level=%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]
+
+  
