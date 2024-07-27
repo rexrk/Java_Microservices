@@ -1,5 +1,7 @@
 <h1> Progress Track
 
+# Microservices 
+
 ## Day 1
 
 ```
@@ -162,3 +164,20 @@ Config Client | Config Client | Config Client
 
 - Allowing Concurrent requeusts
   > @BulkHead(name={name})
+
+# Microservices with Docker
+
+## Day 8
+- Docker commands
+  > Tailing logs : logs {id} -f <br>
+  Search Image : search {imageName} <br>
+  Stopping container : pause / unpause, stop, kill <br>
+  AutoRestart Container : run --restart=always <br> 
+  Events : events <br>
+  Running process : top <br>
+  container details : stats <br>
+  cpu quota : run --cpu-quota={1-100000} <br>
+  memory : run -m {memSize}{m/g} <br>
+  docker daemon : system df <br>
+  
+
