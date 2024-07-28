@@ -194,4 +194,20 @@ Config Client | Config Client | Config Client
     > management.tracing.sampling.probability={,1.0} <br>
       logging.pattern.level=%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]
 
-  
+  - Enable Tracing in feign api calls :
+    > Dependency : feign-micrometer
+
+  - Integrate micrometer with RestTemplate :
+    ```java
+    @Configuration(proxyBeanMethods = false)
+    class RestTemplateConfiguration {
+      //create RestTemplate using RestTemplateBuilder
+      @Bean
+      RestTemplate restTemplate(RestTemplateBuilder builder) {
+          return builder.build();
+      }
+    }
+    ```
+    
+
+
