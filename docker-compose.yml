@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
 
   currency-exchange:
@@ -13,6 +11,8 @@ services:
       - naming-server
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      EUREKA.CLIENT.FETCHREGISTRY: "true"
+      SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
 
   currency-conversion:
     image: devraman/ms-currency-conversion-service:0.0.1-SNAPSHOT
@@ -25,6 +25,8 @@ services:
       - naming-server
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      EUREKA.CLIENT.FETCHREGISTRY: "true"
+      SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
 
   api-gateway:
     image: devraman/ms-api-gateway:0.0.1-SNAPSHOT
@@ -37,6 +39,8 @@ services:
       - naming-server
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      EUREKA.CLIENT.FETCHREGISTRY: "true"
+      SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
 
   naming-server:
     image: devraman/ms-naming-server:0.0.1-SNAPSHOT
@@ -45,6 +49,15 @@ services:
       - "8761:8761"
     networks:
       - currency-network
+
+  zipkin-server:
+    image: openzipkin/zipkin:latest
+    mem_reservation: 300m
+    ports:
+      - "9411:9411"
+    networks:
+      - currency-network
+    restart: always
 
 networks:
   currency-network:

@@ -193,6 +193,8 @@ Config Client | Config Client | Config Client
   - Properties : 
     > management.tracing.sampling.probability={,1.0} <br>
       logging.pattern.level=%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]
+  
+  - zipkin link : http://localhost:9411
 
   - Enable Tracing in feign api calls :
     > Dependency : feign-micrometer
@@ -222,4 +224,6 @@ Config Client | Config Client | Config Client
           </docker>
       </configuration>
 ```
-  > run image : docker run -p 8000:8000 devraman/ms-currency-exchange-service:0.0.1-SNAPSHOT
+  - run image: docker run -p 8000:8000 devraman/ms-currency-exchange-service:0.0.1-SNAPSHOT
+
+## Day 10
