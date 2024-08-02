@@ -208,6 +208,18 @@ Config Client | Config Client | Config Client
       }
     }
     ```
-    
-
-
+## Day 9
+- Creating container image from pom.xml
+  ```java
+      <configuration>
+          <image>
+              <name>{imageName}</name>
+          </image>
+          <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+          //fixes {:} issue
+          <docker>
+              <host>//./pipe/dockerDesktopLinuxEngine</host>
+          </docker>
+      </configuration>
+```
+  > run image : docker run -p 8000:8000 devraman/ms-currency-exchange-service:0.0.1-SNAPSHOT
