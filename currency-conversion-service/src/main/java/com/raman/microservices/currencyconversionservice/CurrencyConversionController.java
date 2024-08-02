@@ -1,6 +1,9 @@
 package com.raman.microservices.currencyconversionservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +15,23 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+@Configuration(proxyBeanMethods = false)
+class RestTemplateConfiguration {
+
+    @Bean
+    RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
+}
+
 @RestController
 public class CurrencyConversionController {
 
     @Autowired
     private Environment env;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @GetMapping("currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
     public CurrencyConversion calculateCurrencyConversion(
@@ -30,7 +45,7 @@ public class CurrencyConversionController {
 
         uriVariables.put("from", from);
         uriVariables.put("to", to);
-        ResponseEntity<CurrencyConversion> responseEntity = new RestTemplate().getForEntity(url, CurrencyConversion.class, uriVariables);
+        ResponseEntity<CurrencyConversion> responseEntity = restTemplate.getForEntity(url, CurrencyConversion.class, uriVariables);
         CurrencyConversion currencyConversion = responseEntity.getBody();
 
         assert currencyConversion != null;

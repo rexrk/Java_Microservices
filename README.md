@@ -179,5 +179,51 @@ Config Client | Config Client | Config Client
   cpu quota : run --cpu-quota={1-100000} <br>
   memory : run -m {memSize}{m/g} <br>
   docker daemon : system df <br>
-  
 
+- Distributed Tracing
+  > Tracing / Debugging
+    - Run zipkin on port 9411
+
+- OpenTelemetry
+  - Dependencies :
+    > Micrometer : micrometer-observation <br>
+    > OpenTelemetry : micrometer-tracing-bridge-otel <br>
+    > Zipkin : opentelemetry-exporter-zipkin <br>
+
+  - Properties : 
+    > management.tracing.sampling.probability={,1.0} <br>
+      logging.pattern.level=%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]
+  
+  - zipkin link : http://localhost:9411
+
+  - Enable Tracing in feign api calls :
+    > Dependency : feign-micrometer
+
+  - Integrate micrometer with RestTemplate :
+    ```java
+    @Configuration(proxyBeanMethods = false)
+    class RestTemplateConfiguration {
+      //create RestTemplate using RestTemplateBuilder
+      @Bean
+      RestTemplate restTemplate(RestTemplateBuilder builder) {
+          return builder.build();
+      }
+    }
+    ```
+## Day 9
+- Creating container image from pom.xml
+  ```java
+      <configuration>
+          <image>
+              <name>{imageName}</name>
+          </image>
+          <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+          //fixes {:} issue
+          <docker>
+              <host>//./pipe/dockerDesktopLinuxEngine</host>
+          </docker>
+      </configuration>
+```
+  - run image: docker run -p 8000:8000 devraman/ms-currency-exchange-service:0.0.1-SNAPSHOT
+
+## Day 10
